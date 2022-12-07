@@ -23,8 +23,8 @@ pub struct HassClient {
 }
 
 /// establish the websocket connection to Home Assistant server
-pub async fn connect(host: &str, port: u16) -> HassResult<HassClient> {
-    let addr = format!("ws://{}:{}/api/websocket", host, port);
+pub async fn connect(host: &str) -> HassResult<HassClient> {
+    let addr = format!("wss://{}/api/websocket", host);
     let url = url::Url::parse(&addr)?;
     let gateway = WsConn::connect(url).await?;
     Ok(HassClient { gateway })
